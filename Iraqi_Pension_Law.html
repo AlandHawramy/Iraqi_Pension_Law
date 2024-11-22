@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ژمێریاری مووچە</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        :root {
+            --bg-primary: #121228;
+            --bg-secondary: #1e1e3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --accent-color: #4a90e2;
+            --input-bg: #2a2a4a;
+            --input-border: #3a3a5a;
+            --box-shadow: rgba(0, 0, 255, 0.1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f4f4f8;
+            --bg-secondary: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --accent-color: #3a7ca5;
+            --input-bg: #ffffff;
+            --input-border: #d0d0e0;
+            --box-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 0;
+        }
+
+        .container {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            box-shadow: 0 15px 40px var(--box-shadow);
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--accent-color);
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--input-bg);
+            border: 2px solid var(--input-border);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .theme-toggle i {
+            font-size: 1.3em;
+        }
+
+        .theme-toggle i.fa-sun {
+            color: gold;
+        }
+
+        .theme-toggle i.fa-moon {
+            color: navy;
+        }
+
+        .form-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            padding-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--input-border);
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .btn:hover {
+            background-color: color-mix(in srgb, var(--accent-color) 85%, white);
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+            
+        }
+
+        .result-item {
+            background-color: var(--input-bg);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--box-shadow);
+            transition: transform 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .result-item:hover {
+            transform: scale(1.05);
+        }
+
+        .result-item strong {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.8em;
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 68, 68, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.4s ease;
+            font-size: 0.9em;
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0; 
+                transform: translate(-50%, -50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translate(-50%, 0); 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+                max-width: 100%;
+                height: 100vh;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group, .results {
+                margin-bottom: 15px;
+            }
+
+            input, select, .btn {
+                font-size: 0.85em;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>یاسایی خانەنشینی عێراق</h1>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="salary1">مووچەی ساڵی ٢٠٢٢</label>
+                <input type="text" id="salary1" pattern="[0-9]*\.?[0-9]*" placeholder="مانگانە لە ٢٠٢٢ چەندت وەرگرتوە " inputmode="numeric" aria-label="مووچەی یەکەم">
+            </div>
+            
+            <div class="form-group">
+                <label for="salary2">مووچەی ساڵی ٢٠٢٣</label>
+                <input type="text" id="salary2" pattern="[0-9]*\.?[0-9]*" placeholder="مانگانە لە ٢٠٢٣ چەندت وەرگرتوە " inputmode="numeric" aria-label="مووچەی دووەم">
+            </div>
+            
+            <div class="form-group">
+                <label for="salary3">مووچەی ساڵی ٢٠٢٤</label>
+                <input type="text" id="salary3" pattern="[0-9]*\.?[0-9]*" placeholder="مانگانە لە ٢٠٢٤ چەندت وەرگرتوە " inputmode="numeric" aria-label="مووچەی سێیەم">
+            </div>
+            
+            <div class="form-group">
+                <label for="service-years">ساڵانی خزمەت</label>
+                <input type="text" id="service-years" pattern="[0-9]*\.?[0-9]*" placeholder="چەند ساڵ خزمەتت هەیە" inputmode="numeric" aria-label="ساڵانی خزمەت">
+            </div>
+            
+            <div class="form-group">
+                <label for="degree">بڕوانامە</label>
+                <select id="degree" aria-label="بڕوانامەکانت">
+                    <option value="0">بڕوانامەم نییە</option>
+                    <option value="0.05">دیپلۆم</option>
+                    <option value="0.10">بەکالۆریۆس</option>
+                    <option value="0.15">دیپلۆمی بالا</option>
+                    <option value="0.15">ماستەر</option>
+                    <option value="0.20">دکتۆرا</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="calculate()">ژمێرکردن</button>
+            
+            <div class="results">
+                <div class="result-item">
+                    <strong>تێکڕای مووچە</strong>
+                    <span id="result1">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>دەرماڵەی بژێوی</strong>
+                    <span id="result2">0</span>
+                </div>
+                <div class="result-item">
+                    <strong>دەرماڵەی بڕوانامە</strong>
+                    <span id="result3">0</span>
+                </div>
+                <div class="result-item"   >
+                    <strong>کۆی گشتی</strong>
+                    <span id="final-result">0</span>
+                </div>
+
+                
+                
+            </div>
+            
+        </div>
+
+        
+           
+       
+    </div>
+
+    <div id="alert" class="alert" role="alert"></div>
+
+    <script>
+        // ڕووناکی و تاریک چالاک کە
+function toggleTheme() {
+    const root = document.documentElement;
+    const themeIcon = document.getElementById('theme-icon');
+    
+    if (root.getAttribute('data-theme') === 'light') {
+        root.setAttribute('data-theme', 'dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    } else {
+        root.setAttribute('data-theme', 'light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+}
+
+        // دیاریکردنی فۆرماتی زمارەکان بۆ شێوازی کوردی و زمارەکانی عەرەبی
+        function formatNumber(num) {
+            return new Intl.NumberFormat('english', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2,
+                useGrouping: true
+            }).format(num);
+        }
+
+        // پیشاندانی ئاگادارکردنەوەکان
+        function showAlert(message) {
+            const alertEl = document.getElementById('alert');
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+            setTimeout(() => {
+                alertEl.style.display = 'none';
+            }, 4000);
+        }
+
+        // ڤالیدەیشنی زمارەکان
+        document.querySelectorAll('input[pattern]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value;
+                // لابردنی هەر نووسراوێکی جگە لە ژمارە و خاڵ
+                e.target.value = value.replace(/[^0-9.]/g, '');
+                
+                // دڵنیابوون لەوەی تەنها یەک خاڵ هەیە
+                let dotCount = (value.match(/\./g) || []).length;
+                if (dotCount > 1) {
+                    e.target.value = value.replace(/\.+$/, '');
+                }
+            });
+        });
+
+        // ژمێرکردنی مووچە
+        
+
+            // ژمێرکردنی مووچە
+function calculate() {
+    // وەرگرتنی نرخەکان
+    const salary1 = parseFloat(document.getElementById('salary1').value) || 0;
+    const salary2 = parseFloat(document.getElementById('salary2').value) || 0;
+    const salary3 = parseFloat(document.getElementById('salary3').value) || 0;
+    const serviceYears = parseFloat(document.getElementById('service-years').value) || 0;
+    const degreeMultiplier = parseFloat(document.getElementById('degree').value) || 0;
+
+    // ڤالیدەیشن بۆ بەتاڵ بوونی خانەکان
+    if (salary1 === 0 || salary2 === 0 || salary3 === 0 || serviceYears === 0) {
+        showAlert('تکایە هەموو زانیاریەکان پڕ بکەوە');
+        return;
+    }
+
+    // ڤالیدەیشن بۆ ساڵانی خزمەت
+    if (serviceYears < 15) {
+        showAlert('دەبێت زیاد لە ١٥ سال خزمەتی هەبێت و تەمەنی سەروو ٤٥ ساڵ بێت');
+        return;
+    }
+
+    // ژمێرکردنی تێکڕای مووچە
+    const averageSalary = (salary1 * 12 + salary2 * 12 + salary3 * 12) / 36;
+    
+    // ژمێرکردنی بڕی مووچەکان
+    const result1 = (averageSalary * serviceYears * 2.5) / 100;
+    const result2 = (result1 * serviceYears) / 100;
+    const result3 = result1 * degreeMultiplier;
+    const finalResult = result1 + result2 + result3;
+
+    // نیشاندانی ئەنجامەکان بە فۆرماتی جوان
+    document.getElementById('result1').textContent = formatNumber(result1);
+    document.getElementById('result2').textContent = formatNumber(result2);
+    document.getElementById('result3').textContent = formatNumber(result3);
+    document.getElementById('final-result').textContent = formatNumber(finalResult);
+}
+    </script>
+ 
+</body>
+</html>
