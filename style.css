@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+:root {
+    --bg-primary: #121228;
+    --bg-secondary: #1e1e3a;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+    --accent-color: #4a90e2;
+    --input-bg: #2a2a4a;
+    --input-border: #3a3a5a;
+    --box-shadow: rgba(0, 0, 255, 0.1);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f4f4f8;
+    --bg-secondary: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #3a7ca5;
+    --input-bg: #ffffff;
+    --input-border: #d0d0e0;
+    --box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.container {
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    box-shadow: 0 15px 40px var(--box-shadow);
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: var(--accent-color);
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--input-bg);
+    border: 2px solid var(--input-border);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.theme-toggle i {
+    font-size: 1.3em;
+}
+
+.theme-toggle i.fa-sun {
+    color: gold;
+}
+
+.theme-toggle i.fa-moon {
+    color: navy;
+}
+
+.form-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 35px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+input:focus, select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+}
+
+.btn:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 85%, white);
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+    
+}
+
+.result-item {
+    background-color: var(--input-bg);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--box-shadow);
+    transition: transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+.result-item:hover {
+    transform: scale(1.05);
+}
+
+.result-item strong {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-size: 0.8em;
+}
+
+.alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 68, 68, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    text-align: center;
+    display: none;
+    animation: slideDown 0.4s ease;
+    font-size: 0.9em;
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0; 
+        transform: translate(-50%, -50px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group, .results {
+        margin-bottom: 15px;
+    }
+
+    input, select, .btn {
+        font-size: 0.85em;
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 1.5em;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
