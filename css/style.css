@@ -30,13 +30,10 @@
 }
 
 html, body {
-   
     width: 100vw;
     margin: 0;
-   
     display: flex;
     flex-direction: column;
-
 }
 
 body {
@@ -47,7 +44,7 @@ body {
     color: var(--text-primary);
     padding: 0;
     direction: rtl;
-     min-height: 100vh; /* Increase the minimum height to cover the full viewport */
+    min-height: 100vh;
 }
 
 .container {
@@ -58,7 +55,6 @@ body {
     padding: 40px;
     box-shadow: 0 15px 40px var(--box-shadow);
     position: relative;
-    
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -136,31 +132,31 @@ body {
 
 .form-row .form-group {
     flex: 1;
-    margin-bottom: 18px;  /* کەمکردنەوەی مەودای خوارەوە بۆ جوانتر دەرکەوتن لە مۆبایل */
+    margin-bottom: 18px;
 }
 
 .form-group {
-    margin-bottom: 18px; /* کەمکردنەوەی مەودای خوارەوە بۆ جوانتر دەرکەوتن لە مۆبایل */
+    margin-bottom: 18px;
 }
 
 label {
     display: block;
-    margin-bottom: 8px; /* کەمکردنەوەی مەودا لە خوارەوەی لیبێڵ */
+    margin-bottom: 8px;
     color: var(--text-secondary);
     font-weight: 600;
-    font-size: 0.9em; /* کەمکردنەوەی قەبارەی فۆنتی لیبێڵ */
+    font-size: 0.9em;
 }
 
 input, select {
     width: 100%;
-    padding: 11px; /* کەمکردنەوەی پادینگ */
+    padding: 11px;
     border: 2px solid var(--input-border);
     border-radius: var(--border-radius);
     background-color: var(--input-bg);
     color: var(--text-primary);
     outline: none;
     transition: all 0.3s ease;
-    font-size: 0.95em;  /* کەمکردنەوەی قەبارەی فۆنت لە ناو inputـەکان */
+    font-size: 0.95em;
 }
 
 input:focus, select:focus {
@@ -170,14 +166,14 @@ input:focus, select:focus {
 
 .btn {
     width: 100%;
-    padding: 12px; /* کەمکردنەوەی پادینگ */
+    padding: 12px;
     background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: var(--border-radius);
     font-weight: bold;
     cursor: pointer;
-    margin-top: 15px; /* کەمکردنەوەی مەودای سەرەوەی دوگمە */
+    margin-top: 15px;
     transition: background-color 0.3s ease;
     font-size: 1em;
 }
@@ -249,16 +245,19 @@ input:focus, select:focus {
     }
 }
 
+
+/* ستایلەکان بۆ مۆبایل */
 @media (max-width: 768px) {
     .container {
         padding: 25px;
         width: 100%;
         max-width: 100%;
-       
+        height: auto; /* لابردنی بەرزایی دیاریکراو بۆ ئەوەی ناوەڕۆک بگونجێت */
+        min-height: 100vh; /* دڵنیابوون لەوەی کە بەلایەنی کەمەوە هەموو شاشە دەگرێتەوە */
     }
 
     .form-group, .results {
-        margin-bottom: 15px; /* کەمکردنەوەی مەودای خوارەوە بۆ دەرکەوتنی ناسکتر لە مۆبایل */
+        margin-bottom: 15px;
     }
     
      .form-row {
@@ -277,12 +276,24 @@ input:focus, select:focus {
 
     input, select, .btn {
         font-size: 0.9em;
-        padding: 10px;  /* کەمکردنەوەی پادینگ لە مۆبایل */
+        padding: 10px;
     }
+      /*  قەبارەی placeholder لە مۆبایل بچووک دەکاتەوە  */
+    input::placeholder,
+    select::placeholder {
+    font-size: 0.8em; /* قەبارەی فۆنت بۆ placeholder بچووک دەکاتەوە */
+    color: #b0b0c8; /* ڕەنگی placeholder بۆ ئەوەی زیاتر دیار بێت */
+}
 
     .header h1 {
         font-size: 1.7em;
     }
+}
+/*  ستایلەکان بۆ placeholder لەهەموو شوێنێک*/
+input::placeholder,
+select::placeholder {
+    font-size: 0.9em; /* قەبارەی سەرەکی فۆنت بۆ placeholder */
+    color: #b0b0c8;
 }
 
 ::-webkit-scrollbar {
@@ -291,9 +302,16 @@ input:focus, select:focus {
 
 .footer {
     text-align: center;
-   
-    margin-top: auto; /* to push it to the bottom*/
+    margin-top: auto;
     color: var(--text-secondary);
-    font-size: 0.9em; /* کەمکردنەوەی قەبارەی فۆنت */
-    padding: 20px 0; /* Add padding to make it visible */
+    font-size: 0.9em;
+    padding: 20px 0;
+}
+.footer a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+.footer a:hover{
+     text-decoration: underline;
 }
