@@ -1,0 +1,299 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #2a2a40;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0c8;
+    --accent-color: #5c7cfa;
+    --input-bg: #33334d;
+    --input-border: #4d4d6a;
+    --box-shadow: rgba(0, 0, 0, 0.2);
+    --border-radius: 10px;
+}
+
+[data-theme="light"] {
+    --bg-primary: #f5f5fa;
+    --bg-secondary: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #4a8af2;
+    --input-bg: #ffffff;
+    --input-border: #e0e0eb;
+    --box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+   
+    width: 100vw;
+    margin: 0;
+   
+    display: flex;
+    flex-direction: column;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 0;
+    direction: rtl;
+     min-height: 100vh; /* Increase the minimum height to cover the full viewport */
+}
+
+.container {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    box-shadow: 0 15px 40px var(--box-shadow);
+    position: relative;
+    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    color: var(--accent-color);
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--input-bg);
+    border: 2px solid var(--input-border);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.theme-toggle i {
+    font-size: 1.2em;
+}
+
+.theme-toggle i.fa-sun {
+    color: gold;
+}
+
+.theme-toggle i.fa-moon {
+    color: #b5b5c3;
+}
+
+.form-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (min-width: 768px) {
+    .form-row {
+        flex-direction: row;
+    }
+    .results .result-row {
+        flex-direction: row;
+    }
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 18px;  /* کەمکردنەوەی مەودای خوارەوە بۆ جوانتر دەرکەوتن لە مۆبایل */
+}
+
+.form-group {
+    margin-bottom: 18px; /* کەمکردنەوەی مەودای خوارەوە بۆ جوانتر دەرکەوتن لە مۆبایل */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* کەمکردنەوەی مەودا لە خوارەوەی لیبێڵ */
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9em; /* کەمکردنەوەی قەبارەی فۆنتی لیبێڵ */
+}
+
+input, select {
+    width: 100%;
+    padding: 11px; /* کەمکردنەوەی پادینگ */
+    border: 2px solid var(--input-border);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 0.95em;  /* کەمکردنەوەی قەبارەی فۆنت لە ناو inputـەکان */
+}
+
+input:focus, select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(92, 124, 250, 0.3);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px; /* کەمکردنەوەی پادینگ */
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px; /* کەمکردنەوەی مەودای سەرەوەی دوگمە */
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+}
+
+.btn:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 80%, white);
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.results .result-row {
+    display: flex;
+    gap: 20px;
+}
+
+.result-item {
+    background-color: var(--input-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--box-shadow);
+    transition: transform 0.3s ease;
+    font-size: 1em;
+    flex: 1;
+}
+
+.result-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--box-shadow);
+}
+
+.result-item strong {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.alert {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 68, 68, 0.9);
+    color: white;
+    padding: 15px 25px;
+    border-radius: var(--border-radius);
+    z-index: 1000;
+    text-align: center;
+    display: none;
+    animation: slideDown 0.4s ease;
+    font-size: 1em;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0; 
+        transform: translate(-50%, -50px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        width: 100%;
+        max-width: 100%;
+       
+    }
+
+    .form-group, .results {
+        margin-bottom: 15px; /* کەمکردنەوەی مەودای خوارەوە بۆ دەرکەوتنی ناسکتر لە مۆبایل */
+    }
+    
+     .form-row {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .results .result-row {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .result-item {
+        flex: 1;
+    }
+
+    input, select, .btn {
+        font-size: 0.9em;
+        padding: 10px;  /* کەمکردنەوەی پادینگ لە مۆبایل */
+    }
+
+    .header h1 {
+        font-size: 1.7em;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+   
+    margin-top: auto; /* to push it to the bottom*/
+    color: var(--text-secondary);
+    font-size: 0.9em; /* کەمکردنەوەی قەبارەی فۆنت */
+    padding: 20px 0; /* Add padding to make it visible */
+}
